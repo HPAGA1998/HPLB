@@ -1,0 +1,36 @@
+/*Buttons*/
+.btn{
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    
+}
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+.btn-big{
+  font-size: large;
+}
+.btn-accept{
+    color: green;
+    background-color: rgb(212, 247, 212);
+}
+.btn-delete{
+    color: red;
+    background-color: rgb(251, 161, 161);
+}
+/*Inputs*/
+.inp{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 25px;
+}
+.inp:focus{
+    border: 2px solid black;
+}
+.inp:invalid{
+    border: 2px solid red;
+}

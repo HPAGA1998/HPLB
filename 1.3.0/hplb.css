@@ -1,0 +1,64 @@
+/*Text*/
+.header{
+    text-align: center;
+    font-family: sans-serif;
+}
+.txt-center{
+    text-align: center;
+}
+/*Colors*/
+.bg-rainbow{
+    background: linear-gradient(to right, red, orange, yellow, green, lightblue, blue, purple);
+}
+.txt-rainbow{
+    color: red;
+    text-shadow:
+    1px 1px 2px orange,
+    2px 2px 2px yellow,
+    3px 3px 2px green,
+    4px 4px 2px lightblue,
+    5px 5px 2px blue,
+    6px 6px 2px purple
+    ;
+}
+/*Buttons*/
+a.btn{
+    text-decoration: none;
+    color: black;
+}
+.btn{
+    background-color: lightgrey;
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    display: inline-block;
+}
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+.btn-big{
+  font-size: large;
+}
+.btn-accept{
+    color: green;
+    background-color: rgb(212, 247, 212);
+}
+.btn-delete{
+    color: red;
+    background-color: rgb(251, 161, 161);
+}
+/*Inputs*/
+.inp{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 25px;
+}
+.inp:focus{
+    border: 2px solid black;
+}
+.inp:invalid{
+    border: 2px solid red;
+}

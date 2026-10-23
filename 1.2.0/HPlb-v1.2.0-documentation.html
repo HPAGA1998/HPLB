@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>HPlb v1.2.0 — документация</title>
+<style id="doc-layout-css">
+html{scroll-padding-top:16px}
+body{margin:0}
+.doc-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:40px;max-width:1400px;margin:auto;padding:24px}
+.doc-sidebar{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto}
+.doc-nav{display:grid;gap:8px;margin:20px 0}
+.doc-language{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.doc-nav a{display:block}
+main,section,article{min-width:0}
+header{margin-bottom:32px}
+section{margin:40px 0}
+.doc-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:20px 0}
+.doc-toolbar label{display:grid;gap:8px;min-width:0}
+.doc-toolbar input{max-width:calc(100% - 6px)}
+.doc-example{margin:32px 0;scroll-margin-top:20px}
+.doc-compare,.doc-codes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+.doc-compare>div,.doc-codes>div{min-width:0}
+.doc-preview,.doc-native-preview{overflow:auto;padding:8px 0}
+.doc-preview input{max-width:calc(100% - 6px)}
+.doc-code{min-width:0;margin:12px 0}
+pre{overflow:auto;margin:8px 0;padding:8px 0}
+.doc-table{overflow:auto}
+table{width:100%}
+th,td{text-align:left;vertical-align:top;padding:10px}
+.doc-notice{margin:20px 0;overflow:auto}
+.doc-notice>info-card,.doc-notice>custom-card{display:block}
+.doc-notice>info-card>div,.doc-notice>custom-card>div{max-width:100%;box-sizing:border-box}
+details{margin:16px 0}
+summary{padding:8px 0}
+.doc-form label{display:block;margin:16px 0}
+.doc-form input{display:block}
+.doc-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.doc-form-status{display:block;min-height:24px;margin-top:12px}
+.doc-back{display:block;margin:24px 0}
+footer{margin:32px 0}
+#doc-copy-status{position:fixed;right:16px;bottom:16px;max-width:calc(100vw - 32px)}
+[hidden]{display:none}
+@media(max-width:1000px){.doc-layout{grid-template-columns:180px minmax(0,1fr);gap:24px}.doc-compare,.doc-codes{grid-template-columns:1fr}}
+@media(max-width:700px){.doc-layout{display:block;padding:16px}.doc-sidebar{position:static;max-height:none;overflow:visible}.doc-nav{display:flex;flex-wrap:wrap;gap:10px}.doc-nav a{display:inline-block}.doc-toolbar{display:block}.doc-toolbar>button{margin-top:12px}th,td{padding:8px}section{margin:32px 0}}
+</style><style id="hplb-original-css">/*Text*/
+.header{
+    text-align: center;
+    font-family: sans-serif;
+}
+.txt-center{
+    text-align: center;
+}
+/*Colors*/
+.bg-rainbow{
+    background: linear-gradient(to right, red, orange, yellow, green, lightblue, blue, purple);
+}
+.txt-rainbow{
+    color: red;
+    text-shadow:
+    1px 1px 2px orange,
+    2px 2px 2px yellow,
+    3px 3px 2px green,
+    4px 4px 2px lightblue,
+    5px 5px 2px blue,
+    6px 6px 2px purple
+    ;
+}
+/*Buttons*/
+.btn{
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    
+}
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+.btn-big{
+  font-size: large;
+}
+.btn-accept{
+    color: green;
+    background-color: rgb(212, 247, 212);
+}
+.btn-delete{
+    color: red;
+    background-color: rgb(251, 161, 161);
+}
+/*Inputs*/
+.inp{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 25px;
+}
+.inp:focus{
+    border: 2px solid black;
+}
+.inp:invalid{
+    border: 2px solid red;
+}</style></head>
+<body><div class="doc-layout"><aside class="doc-sidebar"><p><strong>HPlb v1.2.0</strong></p><div class="doc-language" role="group" aria-label="Язык / Language"><button class="btn btn-accept" type="button" data-doc-language="ru" aria-pressed="true" lang="ru">Русский</button><button class="btn" type="button" data-doc-language="en" aria-pressed="false" lang="en">English</button></div><nav class="doc-nav" aria-label="Разделы документации"><a class="btn" href="#start">Начало</a><a class="btn" href="#setup">Подключение</a><a class="btn" href="#catalog">Справочник</a><a class="btn" href="#text">Текст</a><a class="btn" href="#colors">Цвета</a><a class="btn" href="#buttons">Кнопки</a><a class="btn" href="#inputs">Поля ввода</a><a class="btn" href="#cards">Карточки</a><a class="btn" href="#complete">Полный пример</a><a class="btn" href="#limitations">Особенности</a><a class="btn" href="#api">JavaScript API</a><a class="btn" href="#sources">Исходный код</a></nav><a class="doc-back" href="#start">К началу</a></aside><main><header id="start"><h1 class="header">HPlb v1.2.0</h1><p>Документация и рабочие примеры</p><div class="doc-notice"><custom-card bg-cl="rgb(207, 226, 232)" cl-cl="lightblue" name="HPlb v1.2.0">Кнопки, поля ввода и карточки для HTML.</custom-card></div><p>Начните с подключения, выберите компонент в справочнике или найдите пример по названию класса.</p><p>В каждом сравнении слева показан HPlb, справа — обычный HTML со стандартным оформлением браузера. На узком экране варианты расположены друг под другом.</p>
+<div class="doc-toolbar"><label for="doc-search">Найти пример<input class="inp" type="search" id="doc-search" placeholder="Например: btn, password, карточка" aria-describedby="doc-search-result"></label><button class="btn" id="doc-clear" type="button">Сбросить поиск</button><button class="btn" id="doc-toggle-code" type="button" aria-pressed="false">Показать весь код</button></div><output id="doc-search-result" aria-live="polite"></output></header><section id="setup"><h2>Подключение</h2><ol><li>Разместите hplb.css и hplb.js рядом с HTML-страницей.</li><li>Подключите CSS в head.</li><li>Разместите карточки до скрипта и подключите hplb.js в самом конце body.</li></ol><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Пример HPlb&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;hplb.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;info-card&gt;Добро пожаловать!&lt;/info-card&gt;
+    &lt;button class=&quot;btn btn-accept&quot; type=&quot;button&quot;&gt;Accept&lt;/button&gt;
+
+    &lt;script src=&quot;hplb.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div><p>Для кнопок, полей и CSS-классов нужен только hplb.css. Для карточек дополнительно нужен hplb.js. Подключайте скрипт один раз: повторная регистрация Custom Elements вызывает ошибку.</p></section><section id="catalog"><h2>Справочник компонентов</h2><p>9 CSS-классов и 3 пользовательских элемента.</p><div class="doc-table"><table><thead><tr><th scope="col">Класс или элемент</th><th scope="col">Назначение</th></tr></thead><tbody><tr><td><a href="#button-base"><code>.btn</code></a></td><td>Базовая кнопка: отступы и рамка.</td></tr><tr><td><a href="#button-big"><code>.btn-big</code></a></td><td>Увеличенный текст кнопки.</td></tr><tr><td><a href="#button-accept"><code>.btn-accept</code></a></td><td>Зелёный текст и светло-зелёный фон.</td></tr><tr><td><a href="#button-delete"><code>.btn-delete</code></a></td><td>Красный текст и розовый фон.</td></tr><tr><td><a href="#inputs"><code>.inp</code></a></td><td>Оформление полей и состояний focus / invalid.</td></tr><tr><td><a href="#text-header"><code>.header</code></a></td><td>Центрирование и семейство sans-serif.</td></tr><tr><td><a href="#text-center"><code>.txt-center</code></a></td><td>Центрирование строчного содержимого.</td></tr><tr><td><a href="#color-background"><code>.bg-rainbow</code></a></td><td>Радужный фон.</td></tr><tr><td><a href="#color-text"><code>.txt-rainbow</code></a></td><td>Красный текст и разноцветные тени.</td></tr><tr><td><a href="#card-danger-card"><code>&lt;danger-card&gt;</code></a></td><td>Карточка с фиксированным заголовком и цветами.</td></tr><tr><td><a href="#card-info-card"><code>&lt;info-card&gt;</code></a></td><td>Карточка с фиксированным заголовком и цветами.</td></tr><tr><td><a href="#card-custom-card"><code>&lt;custom-card&gt;</code></a></td><td>Настраиваемая карточка.</td></tr></tbody></table></div></section><section id="text"><h2>Текст</h2><article class="doc-example" id="text-header" data-search="text-header .header центрирует текст и задаёт font-family: sans-serif. размер и уровень заголовка определяются тегом. &lt;h1 class=&quot;header&quot;&gt;заголовок&lt;/h1&gt; ">
+<h3>.header</h3><p>Центрирует текст и задаёт font-family: sans-serif. Размер и уровень заголовка определяются тегом.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><h1 class="header">Заголовок</h1></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><h1>Заголовок</h1></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;h1 class=&quot;header&quot;&gt;Заголовок&lt;/h1&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;h1&gt;Заголовок&lt;/h1&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="text-center" data-search="text-center .txt-center центрирует текст внутри контейнера. не перемещает сам контейнер и не меняет семейство шрифтов. &lt;p class=&quot;txt-center&quot;&gt;текст по центру&lt;/p&gt; ">
+<h3>.txt-center</h3><p>Центрирует текст внутри контейнера. Не перемещает сам контейнер и не меняет семейство шрифтов.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><p class="txt-center">Текст по центру</p></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><p>Текст по центру</p></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;p class=&quot;txt-center&quot;&gt;Текст по центру&lt;/p&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;p&gt;Текст по центру&lt;/p&gt;</code></pre></div></div></div></details></article><p>Класс header не загружает пользовательский шрифт. sans-serif — системное семейство шрифтов без засечек.</p></section><section id="colors"><h2>Цвета</h2><article class="doc-example" id="color-background" data-search="color-background .bg-rainbow градиент слева направо: red, orange, yellow, green, lightblue, blue, purple. высоту и ширину класс не задаёт. &lt;div class=&quot;bg-rainbow&quot;&gt;радужный фон&lt;/div&gt; ">
+<h3>.bg-rainbow</h3><p>Градиент слева направо: red, orange, yellow, green, lightblue, blue, purple. Высоту и ширину класс не задаёт.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><div class="bg-rainbow">Радужный фон</div></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>Радужный фон</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div class=&quot;bg-rainbow&quot;&gt;Радужный фон&lt;/div&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;Радужный фон&lt;/div&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="color-text" data-search="color-text .txt-rainbow буквы красные. шесть теней создают цветной след вправо и вниз; размытие каждой тени — 2px. &lt;p class=&quot;txt-rainbow&quot;&gt;радужные тени&lt;/p&gt; ">
+<h3>.txt-rainbow</h3><p>Буквы красные. Шесть теней создают цветной след вправо и вниз; размытие каждой тени — 2px.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><p class="txt-rainbow">Радужные тени</p></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><p>Радужные тени</p></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;p class=&quot;txt-rainbow&quot;&gt;Радужные тени&lt;/p&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;p&gt;Радужные тени&lt;/p&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="color-combination" data-search="color-combination текст и тени вместе классы header и txt-rainbow можно комбинировать. &lt;h2 class=&quot;header txt-rainbow&quot;&gt;hplb&lt;/h2&gt; ">
+<h3>Текст и тени вместе</h3><p>Классы header и txt-rainbow можно комбинировать.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><h2 class="header txt-rainbow">HPlb</h2></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><h2>HPlb</h2></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;h2 class=&quot;header txt-rainbow&quot;&gt;HPlb&lt;/h2&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;h2&gt;HPlb&lt;/h2&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="color-button" data-search="color-button градиентная кнопка базовая кнопка с радужным фоном. &lt;button class=&quot;btn bg-rainbow&quot; type=&quot;button&quot;&gt;rainbow&lt;/button&gt; ">
+<h3>Градиентная кнопка</h3><p>Базовая кнопка с радужным фоном.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn bg-rainbow" type="button">Rainbow</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Rainbow</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn bg-rainbow&quot; type=&quot;button&quot;&gt;Rainbow&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Rainbow&lt;/button&gt;</code></pre></div></div></div></details></article></section><section id="buttons"><h2>Кнопки</h2><p>Начните с .btn, затем добавьте размер и один цветовой модификатор. Базовая кнопка имеет padding: 5px, border-radius: 5px, width: max-content и прозрачную рамку 1px. При наведении рамка становится чёрной, а курсор — указателем.</p><article class="doc-example" id="button-base" data-search="button-base обычная кнопка класс задаёт оформление; действие кнопки добавляется отдельно. &lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;button&lt;/button&gt; ">
+<h3>Обычная кнопка</h3><p>Класс задаёт оформление; действие кнопки добавляется отдельно.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn" type="button">Button</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Button</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn&quot; type=&quot;button&quot;&gt;Button&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Button&lt;/button&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="button-big" data-search="button-big большая кнопка font-size: large. &lt;button class=&quot;btn btn-big&quot; type=&quot;button&quot;&gt;big button&lt;/button&gt; ">
+<h3>Большая кнопка</h3><p>font-size: large.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn btn-big" type="button">Big Button</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Big Button</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn btn-big&quot; type=&quot;button&quot;&gt;Big Button&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Big Button&lt;/button&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="button-accept" data-search="button-accept подтверждение класс задаёт оформление; действие кнопки добавляется отдельно. &lt;button class=&quot;btn btn-accept&quot; type=&quot;button&quot;&gt;accept&lt;/button&gt; ">
+<h3>Подтверждение</h3><p>Класс задаёт оформление; действие кнопки добавляется отдельно.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn btn-accept" type="button">Accept</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Accept</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn btn-accept&quot; type=&quot;button&quot;&gt;Accept&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Accept&lt;/button&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="button-delete" data-search="button-delete удаление класс задаёт оформление; действие кнопки добавляется отдельно. &lt;button class=&quot;btn btn-delete&quot; type=&quot;button&quot;&gt;delete&lt;/button&gt; ">
+<h3>Удаление</h3><p>Класс задаёт оформление; действие кнопки добавляется отдельно.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn btn-delete" type="button">Delete</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Delete</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn btn-delete&quot; type=&quot;button&quot;&gt;Delete&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Delete&lt;/button&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="button-big-accept" data-search="button-big-accept большая кнопка подтверждения цвет и размер применяются вместе. &lt;button class=&quot;btn btn-big btn-accept&quot; type=&quot;button&quot;&gt;big accept&lt;/button&gt; ">
+<h3>Большая кнопка подтверждения</h3><p>Цвет и размер применяются вместе.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn btn-big btn-accept" type="button">Big Accept</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Big Accept</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn btn-big btn-accept&quot; type=&quot;button&quot;&gt;Big Accept&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Big Accept&lt;/button&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="button-big-delete" data-search="button-big-delete большая кнопка удаления цвет и размер применяются вместе. &lt;button class=&quot;btn btn-big btn-delete&quot; type=&quot;button&quot;&gt;big delete&lt;/button&gt; ">
+<h3>Большая кнопка удаления</h3><p>Цвет и размер применяются вместе.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><button class="btn btn-big btn-delete" type="button">Big Delete</button></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><button type="button">Big Delete</button></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button class=&quot;btn btn-big btn-delete&quot; type=&quot;button&quot;&gt;Big Delete&lt;/button&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;button type=&quot;button&quot;&gt;Big Delete&lt;/button&gt;</code></pre></div></div></div></details></article><div class="doc-notice"><info-card>Accept и Delete не подтверждают и не удаляют данные сами по себе. Для кнопки без отправки формы укажите type="button".</info-card></div><p>Если добавить оба цветовых класса, цвета .btn-delete победят из-за порядка правил в CSS. Порядок классов в HTML результата не меняет. Модификаторы не заменяют базовый класс .btn.</p></section><section id="inputs"><h2>Поля ввода</h2><p>Класс .inp применяется к любому элементу с этим классом независимо от type. Базовые значения: чёрная рамка 1px, скругление 5px, высота 25px и размер текста 25px. Для текстовых полей, email, телефона, числа и пароля используется один класс.</p><article class="doc-example" id="input-text" data-search="input-text type=&quot;text&quot; обычное текстовое поле. &lt;label&gt;текст
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; value=&quot;введите текст&quot;&gt;
+&lt;/label&gt; ">
+<h3>type="text"</h3><p>Обычное текстовое поле.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Текст
+    <input class="inp" type="text" value="Введите текст">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Текст
+    <input type="text" value="Введите текст">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; value=&quot;Введите текст&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input type=&quot;text&quot; value=&quot;Введите текст&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-number" data-search="input-number type=&quot;number&quot; числовое поле; ограничения задаются атрибутами min, max и step. &lt;label&gt;число
+    &lt;input class=&quot;inp&quot; type=&quot;number&quot; value=&quot;42&quot;&gt;
+&lt;/label&gt; ">
+<h3>type="number"</h3><p>Числовое поле; ограничения задаются атрибутами min, max и step.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Число
+    <input class="inp" type="number" value="42">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Число
+    <input type="number" value="42">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Число
+    &lt;input class=&quot;inp&quot; type=&quot;number&quot; value=&quot;42&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Число
+    &lt;input type=&quot;number&quot; value=&quot;42&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-email" data-search="input-email type=&quot;email&quot; браузер проверяет формат непустого адреса. &lt;label&gt;email
+    &lt;input class=&quot;inp&quot; type=&quot;email&quot; value=&quot;example@mail.com&quot;&gt;
+&lt;/label&gt; ">
+<h3>type="email"</h3><p>Браузер проверяет формат непустого адреса.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Email
+    <input class="inp" type="email" value="example@mail.com">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Email
+    <input type="email" value="example@mail.com">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Email
+    &lt;input class=&quot;inp&quot; type=&quot;email&quot; value=&quot;example@mail.com&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Email
+    &lt;input type=&quot;email&quot; value=&quot;example@mail.com&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-tel" data-search="input-tel type=&quot;tel&quot; type=&quot;tel&quot; сам по себе не проверяет формат номера. &lt;label&gt;телефон
+    &lt;input class=&quot;inp&quot; type=&quot;tel&quot; value=&quot;+7 900 123-45-67&quot;&gt;
+&lt;/label&gt; ">
+<h3>type="tel"</h3><p>type="tel" сам по себе не проверяет формат номера.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Телефон
+    <input class="inp" type="tel" value="+7 900 123-45-67">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Телефон
+    <input type="tel" value="+7 900 123-45-67">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Телефон
+    &lt;input class=&quot;inp&quot; type=&quot;tel&quot; value=&quot;+7 900 123-45-67&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Телефон
+    &lt;input type=&quot;tel&quot; value=&quot;+7 900 123-45-67&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-password" data-search="input-password type=&quot;password&quot; символы скрывает браузер. встроенный значок показа пароля, если он есть, относится к браузеру, а не к hplb. &lt;label&gt;пароль
+    &lt;input class=&quot;inp&quot; type=&quot;password&quot; value=&quot;demo123&quot;&gt;
+&lt;/label&gt; ">
+<h3>type="password"</h3><p>Символы скрывает браузер. Встроенный значок показа пароля, если он есть, относится к браузеру, а не к HPlb.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Пароль
+    <input class="inp" type="password" value="demo123">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Пароль
+    <input type="password" value="demo123">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Пароль
+    &lt;input class=&quot;inp&quot; type=&quot;password&quot; value=&quot;demo123&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Пароль
+    &lt;input type=&quot;password&quot; value=&quot;demo123&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-no-type" data-search="input-no-type поле без type при отсутствии type браузер использует текстовое поле. оформление .inp сохраняется. &lt;label&gt;текст
+    &lt;input class=&quot;inp&quot; placeholder=&quot;введите текст&quot;&gt;
+&lt;/label&gt; ">
+<h3>Поле без type</h3><p>При отсутствии type браузер использует текстовое поле. Оформление .inp сохраняется.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Текст
+    <input class="inp" placeholder="Введите текст">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Текст
+    <input placeholder="Введите текст">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input class=&quot;inp&quot; placeholder=&quot;Введите текст&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input placeholder=&quot;Введите текст&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><h3>Состояния</h3><div class="doc-table"><table><thead><tr><th scope="col">Селектор</th><th scope="col">Результат</th></tr></thead><tbody><tr><td><code>.inp:focus</code></td><td>Чёрная рамка 2px при фокусе.</td></tr><tr><td><code>.inp:invalid</code></td><td>Красная рамка 2px при невалидном значении. Правило идёт после focus и побеждает его.</td></tr></tbody></table></div><p>Увеличение толщины рамки может менять внешний размер поля. Отдельных правил для hover, disabled и required нет.</p><article class="doc-example" id="input-invalid" data-search="input-invalid неверный email замените значение корректным адресом: красная рамка исчезнет. &lt;label&gt;email
+    &lt;input class=&quot;inp&quot; type=&quot;email&quot; value=&quot;not-an-email&quot;&gt;
+&lt;/label&gt; ">
+<h3>Неверный email</h3><p>Замените значение корректным адресом: красная рамка исчезнет.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Email
+    <input class="inp" type="email" value="not-an-email">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Email
+    <input type="email" value="not-an-email">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Email
+    &lt;input class=&quot;inp&quot; type=&quot;email&quot; value=&quot;not-an-email&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Email
+    &lt;input type=&quot;email&quot; value=&quot;not-an-email&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-required" data-search="input-required обязательное поле пустое обязательное поле сразу невалидно. &lt;label&gt;имя
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; required placeholder=&quot;введите имя&quot;&gt;
+&lt;/label&gt; ">
+<h3>Обязательное поле</h3><p>Пустое обязательное поле сразу невалидно.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Имя
+    <input class="inp" type="text" required placeholder="Введите имя">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Имя
+    <input type="text" required placeholder="Введите имя">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Имя
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; required placeholder=&quot;Введите имя&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Имя
+    &lt;input type=&quot;text&quot; required placeholder=&quot;Введите имя&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-password-required" data-search="input-password-required обязательный пароль валидность пароля оформляется тем же правилом .inp:invalid. &lt;label&gt;пароль
+    &lt;input class=&quot;inp&quot; type=&quot;password&quot; required placeholder=&quot;введите пароль&quot;&gt;
+&lt;/label&gt; ">
+<h3>Обязательный пароль</h3><p>Валидность пароля оформляется тем же правилом .inp:invalid.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Пароль
+    <input class="inp" type="password" required placeholder="Введите пароль">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Пароль
+    <input type="password" required placeholder="Введите пароль">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Пароль
+    &lt;input class=&quot;inp&quot; type=&quot;password&quot; required placeholder=&quot;Введите пароль&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Пароль
+    &lt;input type=&quot;password&quot; required placeholder=&quot;Введите пароль&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-range" data-search="input-range ограничение числа значение 12 превышает max=&quot;10&quot;. введите число от 1 до 10. &lt;label&gt;количество
+    &lt;input class=&quot;inp&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; value=&quot;12&quot;&gt;
+&lt;/label&gt; ">
+<h3>Ограничение числа</h3><p>Значение 12 превышает max="10". Введите число от 1 до 10.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Количество
+    <input class="inp" type="number" min="1" max="10" value="12">
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Количество
+    <input type="number" min="1" max="10" value="12">
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Количество
+    &lt;input class=&quot;inp&quot; type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; value=&quot;12&quot;&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Количество
+    &lt;input type=&quot;number&quot; min=&quot;1&quot; max=&quot;10&quot; value=&quot;12&quot;&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="input-disabled" data-search="input-disabled отключённое поле disabled запрещает взаимодействие средствами html. &lt;label&gt;текст
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; value=&quot;недоступно&quot; disabled&gt;
+&lt;/label&gt; ">
+<h3>Отключённое поле</h3><p>disabled запрещает взаимодействие средствами HTML.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><label>Текст
+    <input class="inp" type="text" value="Недоступно" disabled>
+</label></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><label>Текст
+    <input type="text" value="Недоступно" disabled>
+</label></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input class=&quot;inp&quot; type=&quot;text&quot; value=&quot;Недоступно&quot; disabled&gt;
+&lt;/label&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;label&gt;Текст
+    &lt;input type=&quot;text&quot; value=&quot;Недоступно&quot; disabled&gt;
+&lt;/label&gt;</code></pre></div></div></div></details></article><div class="doc-notice"><info-card>Валидацию выполняет браузер; HPlb оформляет результат. Кнопки показа пароля и собственного механизма проверки данных в библиотеке нет.</info-card></div><p>Селектор .inp не ограничен input: его можно назначить и другим элементам. Однако для checkbox, radio, range и других нетекстовых элементов нужно учитывать стандартное отображение браузера; отдельных вариантов оформления для них нет.</p></section><section id="cards"><h2>Карточки</h2><p>Карточки — Custom Elements. Содержимое читается из innerHTML и помещается внутрь h5. В сравнении без HPlb используется обычный div с тем же заголовком и содержимым.</p><article class="doc-example" id="card-danger-card" data-search="card-danger-card danger-card фон rgb(255, 97, 97), левая рамка 5px solid red и курсор not-allowed. &lt;danger-card&gt;something went wrong!&lt;/danger-card&gt; ">
+<h3>danger-card</h3><p>Фон rgb(255, 97, 97), левая рамка 5px solid red и курсор not-allowed.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><danger-card>Something went wrong!</danger-card></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>
+    <h3>Danger!</h3>
+    <h5>Something went wrong!</h5>
+</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;danger-card&gt;Something went wrong!&lt;/danger-card&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;
+    &lt;h3&gt;Danger!&lt;/h3&gt;
+    &lt;h5&gt;Something went wrong!&lt;/h5&gt;
+&lt;/div&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="card-info-card" data-search="card-info-card info-card фон rgb(207, 226, 232), левая рамка 5px solid lightblue и курсор help. &lt;info-card&gt;information&lt;/info-card&gt; ">
+<h3>info-card</h3><p>Фон rgb(207, 226, 232), левая рамка 5px solid lightblue и курсор help.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><info-card>Information</info-card></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>
+    <h3>Info?</h3>
+    <h5>Information</h5>
+</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;info-card&gt;Information&lt;/info-card&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;
+    &lt;h3&gt;Info?&lt;/h3&gt;
+    &lt;h5&gt;Information&lt;/h5&gt;
+&lt;/div&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="card-inline" data-search="card-inline строчное оформление в содержимом карточки можно использовать подходящие строчные элементы. &lt;info-card&gt;сохранено &lt;strong&gt;успешно&lt;/strong&gt;.&lt;/info-card&gt; ">
+<h3>Строчное оформление</h3><p>В содержимом карточки можно использовать подходящие строчные элементы.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><info-card>Сохранено <strong>успешно</strong>.</info-card></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>
+    <h3>Info?</h3>
+    <h5>Сохранено <strong>успешно</strong>.</h5>
+</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;info-card&gt;Сохранено &lt;strong&gt;успешно&lt;/strong&gt;.&lt;/info-card&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;
+    &lt;h3&gt;Info?&lt;/h3&gt;
+    &lt;h5&gt;Сохранено &lt;strong&gt;успешно&lt;/strong&gt;.&lt;/h5&gt;
+&lt;/div&gt;</code></pre></div></div></div></details></article><article class="doc-example" id="card-custom-card" data-search="card-custom-card custom-card фон, левая рамка и заголовок задаются атрибутами. &lt;custom-card bg-cl=&quot;lightyellow&quot; cl-cl=&quot;orange&quot; name=&quot;notice&quot;&gt;текст карточки&lt;/custom-card&gt; ">
+<h3>custom-card</h3><p>Фон, левая рамка и заголовок задаются атрибутами.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><custom-card bg-cl="lightyellow" cl-cl="orange" name="Notice">Текст карточки</custom-card></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>
+    <h3>Notice</h3>
+    <h5>Текст карточки</h5>
+</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;custom-card bg-cl=&quot;lightyellow&quot; cl-cl=&quot;orange&quot; name=&quot;Notice&quot;&gt;Текст карточки&lt;/custom-card&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;
+    &lt;h3&gt;Notice&lt;/h3&gt;
+    &lt;h5&gt;Текст карточки&lt;/h5&gt;
+&lt;/div&gt;</code></pre></div></div></div></details></article><h3>Атрибуты custom-card</h3><div class="doc-table"><table><thead><tr><th scope="col">Атрибут</th><th scope="col">Назначение</th><th scope="col">Если отсутствует</th></tr></thead><tbody><tr><td><code>bg-cl</code></td><td>CSS-цвет фона.</td><td>В шаблон попадает null; браузер отклоняет это значение цвета.</td></tr><tr><td><code>cl-cl</code></td><td>CSS-цвет левой рамки толщиной 5px.</td><td>В шаблон попадает null; соответствующее правило рамки недопустимо.</td></tr><tr><td><code>name</code></td><td>Заголовок внутри h3.</td><td>Выводится текст null.</td></tr></tbody></table></div><p>Задайте атрибуты до подключения hplb.js. После создания изменения не отслеживаются: observedAttributes и attributeChangedCallback не реализованы.</p><p>Имя name здесь задаёт заголовок, а не отправляемое значение формы.</p><article class="doc-example" id="card-custom-colors" data-search="card-custom-colors другие цвета custom-card можно использовать обычные css-цвета, включая шестнадцатеричную запись. &lt;custom-card bg-cl=&quot;#e8f5e9&quot; cl-cl=&quot;#2e7d32&quot; name=&quot;готово&quot;&gt;изменения сохранены.&lt;/custom-card&gt; ">
+<h3>Другие цвета custom-card</h3><p>Можно использовать обычные CSS-цвета, включая шестнадцатеричную запись.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><custom-card bg-cl="#e8f5e9" cl-cl="#2e7d32" name="Готово">Изменения сохранены.</custom-card></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><div>
+    <h3>Готово</h3>
+    <h5>Изменения сохранены.</h5>
+</div></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;custom-card bg-cl=&quot;#e8f5e9&quot; cl-cl=&quot;#2e7d32&quot; name=&quot;Готово&quot;&gt;Изменения сохранены.&lt;/custom-card&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;div&gt;
+    &lt;h3&gt;Готово&lt;/h3&gt;
+    &lt;h5&gt;Изменения сохранены.&lt;/h5&gt;
+&lt;/div&gt;</code></pre></div></div></div></details></article><p>Все карточки используют border-radius: 5px, width: max-content и горизонтальные отступы 5px. У danger-card и info-card заголовки фиксированы. Теневой DOM и слоты не используются.</p></section><section id="complete"><h2>Полный пример: форма</h2><p>Попробуйте отправить пустую форму, затем введите email и пароль. В обоих демонстрационных вариантах отправка перехватывается, данные никуда не передаются. Reset очищает поля.</p><article class="doc-example" id="form-example" data-search="form-example форма с валидацией требование заполнения полей и проверка email — возможности html. классы hplb добавляют оформление. &lt;form method=&quot;post&quot;&gt;
+    &lt;p&gt;&lt;label&gt;email &lt;input class=&quot;inp&quot; type=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;пароль &lt;input class=&quot;inp&quot; type=&quot;password&quot; name=&quot;password&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;button class=&quot;btn btn-accept&quot; type=&quot;submit&quot;&gt;accept&lt;/button&gt;
+    &lt;button class=&quot;btn btn-delete&quot; type=&quot;reset&quot;&gt;reset&lt;/button&gt;
+&lt;/form&gt; ">
+<h3>Форма с валидацией</h3><p>Требование заполнения полей и проверка email — возможности HTML. Классы HPlb добавляют оформление.</p><div class="doc-compare">
+<div><h4>HPlb</h4><div class="doc-preview"><form class="doc-form" id="doc-demo-form" data-doc-demo method="post">
+    <p><label>Email <input class="inp" type="email" name="email" required></label></p>
+    <p><label>Пароль <input class="inp" type="password" name="password" required></label></p>
+    <button class="btn btn-accept" type="submit">Accept</button>
+    <button class="btn btn-delete" type="reset">Reset</button>
+<output class="doc-form-status" id="doc-form-status" aria-live="polite"></output></form></div></div>
+<div><h4>Обычный HTML</h4><div class="doc-native-preview"><form data-doc-demo method="post">
+    <p><label>Email <input type="email" name="email" required></label></p>
+    <p><label>Пароль <input type="password" name="password" required></label></p>
+    <button type="submit">Accept</button>
+    <button type="reset">Reset</button>
+<output aria-live="polite"></output></form></div></div></div>
+<details class="doc-example-code"><summary>Показать HTML-код обоих вариантов</summary><div class="doc-codes"><div><h4>Код HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;form method=&quot;post&quot;&gt;
+    &lt;p&gt;&lt;label&gt;Email &lt;input class=&quot;inp&quot; type=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;Пароль &lt;input class=&quot;inp&quot; type=&quot;password&quot; name=&quot;password&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;button class=&quot;btn btn-accept&quot; type=&quot;submit&quot;&gt;Accept&lt;/button&gt;
+    &lt;button class=&quot;btn btn-delete&quot; type=&quot;reset&quot;&gt;Reset&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></div><div><h4>Без HPlb</h4><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;form method=&quot;post&quot;&gt;
+    &lt;p&gt;&lt;label&gt;Email &lt;input type=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;Пароль &lt;input type=&quot;password&quot; name=&quot;password&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;button type=&quot;submit&quot;&gt;Accept&lt;/button&gt;
+    &lt;button type=&quot;reset&quot;&gt;Reset&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></div></div></details></article><h3>Полная HTML-страница</h3><p>Для собственной страницы настройте action или обработчик отправки. В коде ниже действует стандартная отправка методом POST; серверную обработку HPlb не реализует.</p><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ru&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Пример HPlb&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;hplb.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;info-card&gt;Заполните поля и нажмите Accept.&lt;/info-card&gt;
+
+&lt;form method=&quot;post&quot;&gt;
+    &lt;p&gt;&lt;label&gt;Email &lt;input class=&quot;inp&quot; type=&quot;email&quot; name=&quot;email&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;label&gt;Пароль &lt;input class=&quot;inp&quot; type=&quot;password&quot; name=&quot;password&quot; required&gt;&lt;/label&gt;&lt;/p&gt;
+    &lt;button class=&quot;btn btn-accept&quot; type=&quot;submit&quot;&gt;Accept&lt;/button&gt;
+    &lt;button class=&quot;btn btn-delete&quot; type=&quot;reset&quot;&gt;Reset&lt;/button&gt;
+&lt;/form&gt;
+
+    &lt;script src=&quot;hplb.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></section><section id="limitations"><h2>Особенности и ограничения</h2><ul><li>Преобразование карточки происходит в constructor(). Разместите карточки в исходной разметке до подключения движка.</li><li>document.createElement() для зарегистрированной карточки вызывает NotSupportedError: конструктор изменяет дочерние узлы. Для текущей реализации используйте декларативную разметку до скрипта.</li><li>h5 предназначен для фразового содержимого: произвольные блоки, кнопки и поля внутри него не соответствуют модели содержимого HTML.</li><li>Перезапись innerHTML пересоздаёт дочерние узлы; назначенные прежним узлам обработчики событий не сохраняются.</li><li>Карточки имеют width: max-content. Длинные строки могут выходить за узкий контейнер.</li><li>Повторное подключение hplb.js вызывает ошибку повторной регистрации имён.</li></ul><div class="doc-notice"><info-card>Вставляйте в карточки только доверенное содержимое. Движок использует innerHTML без очистки. У custom-card, если он есть в версии, заголовок и цвета также вставляются в HTML-шаблон.</info-card></div></section><section id="api"><h2>JavaScript API</h2><div class="doc-table"><table><thead><tr><th scope="col">Класс</th><th scope="col">Зарегистрированный элемент</th></tr></thead><tbody><tr><td><code>DangerCard</code></td><td><code>&lt;danger-card&gt;</code></td></tr><tr><td><code>InfoCard</code></td><td><code>&lt;info-card&gt;</code></td></tr><tr><td><code>CustomCard</code></td><td><code>&lt;custom-card&gt;</code></td></tr></tbody></table></div><p>Отдельного объекта HPlb, экспортов модулей, публичных методов управления и собственных событий нет. Основной API — CSS-классы, теги карточек и атрибуты custom-card.</p><p>Проверить регистрацию можно стандартным API браузера после загрузки движка:</p><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать JavaScript">Копировать</button><pre><code>customElements.get(&quot;danger-card&quot;); // DangerCard
+customElements.get(&quot;info-card&quot;); // InfoCard
+customElements.get(&quot;custom-card&quot;); // CustomCard</code></pre></div><p>Объявления class в обычном скрипте не создают одноимённые свойства window.</p></section><section id="sources"><h2>Исходный код</h2><p>CSS, JavaScript и страницы примеров этой версии.</p><details><summary>hplb.css</summary><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать CSS">Копировать</button><pre><code>/*Text*/
+.header{
+    text-align: center;
+    font-family: sans-serif;
+}
+.txt-center{
+    text-align: center;
+}
+/*Colors*/
+.bg-rainbow{
+    background: linear-gradient(to right, red, orange, yellow, green, lightblue, blue, purple);
+}
+.txt-rainbow{
+    color: red;
+    text-shadow:
+    1px 1px 2px orange,
+    2px 2px 2px yellow,
+    3px 3px 2px green,
+    4px 4px 2px lightblue,
+    5px 5px 2px blue,
+    6px 6px 2px purple
+    ;
+}
+/*Buttons*/
+.btn{
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    
+}
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+.btn-big{
+  font-size: large;
+}
+.btn-accept{
+    color: green;
+    background-color: rgb(212, 247, 212);
+}
+.btn-delete{
+    color: red;
+    background-color: rgb(251, 161, 161);
+}
+/*Inputs*/
+.inp{
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 25px;
+    font-size: 25px;
+}
+.inp:focus{
+    border: 2px solid black;
+}
+.inp:invalid{
+    border: 2px solid red;
+}</code></pre></div></details><details><summary>hplb.js</summary><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать JavaScript">Копировать</button><pre><code>//danger-card
+class DangerCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        &lt;div style=&quot;background-color: rgb(255, 97, 97); border-left: 5px solid red; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:not-allowed;&quot;&gt;
+            &lt;h3&gt;Danger!&lt;/h3&gt;
+            &lt;h5&gt;${content}&lt;/h5&gt;
+        &lt;/div&gt;
+        `
+    }
+}
+customElements.define(&quot;danger-card&quot;, DangerCard)
+//info-card
+class InfoCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        &lt;div style=&quot;background-color: rgb(207, 226, 232); border-left: 5px solid lightblue; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:help;&quot;&gt;
+            &lt;h3&gt;Info?&lt;/h3&gt;
+            &lt;h5&gt;${content}&lt;/h5&gt;
+        &lt;/div&gt;
+        `
+    }
+}
+customElements.define(&quot;info-card&quot;, InfoCard)
+//custom-card
+class CustomCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        &lt;div style=&quot;background-color: ${this.getAttribute(&quot;bg-cl&quot;)}; border-left: 5px solid ${this.getAttribute(&quot;cl-cl&quot;)}; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:help;&quot;&gt;
+            &lt;h3&gt;${this.getAttribute(&quot;name&quot;)}&lt;/h3&gt;
+            &lt;h5&gt;${content}&lt;/h5&gt;
+        &lt;/div&gt;
+        `
+    }
+}
+customElements.define(&quot;custom-card&quot;, CustomCard)</code></pre></div></details><details><summary>test.html</summary><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Test of HPlb 1.2.0&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;hplb.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!--danger-card--&gt;
+    &lt;danger-card&gt;Danger card content&lt;/danger-card&gt;
+    &lt;!--info-card--&gt;
+    &lt;info-card&gt;Info card content&lt;/info-card&gt;
+    &lt;!--custom-card--&gt;
+    &lt;custom-card name=&quot;Custom card&quot; bg-cl=&quot;lightgreen&quot; cl-cl=&quot;green&quot;&gt;Custom card content&lt;/custom-card&gt;
+    &lt;!--.btn--&gt;
+    &lt;hr&gt;
+    &lt;button class=&quot;btn&quot;&gt;Test button with the .btn class&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button class=&quot;btn btn-big&quot;&gt;Test button with the .btn-big class&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button class=&quot;btn btn-accept&quot;&gt;Test button with the .btn-accept class&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button class=&quot;btn btn-big btn-accept&quot;&gt;Test button with the .btn-accept and .btn-big classes&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button class=&quot;btn btn-delete&quot;&gt;Test button with the .btn-delete class&lt;/button&gt;&lt;br&gt;&lt;br&gt;
+    &lt;button class=&quot;btn btn-big btn-delete&quot;&gt;Test button with the .btn-delete and .btn-big classes&lt;/button&gt;
+    &lt;hr&gt;
+    &lt;!--.inp--&gt;
+    &lt;input type=&quot;text&quot; class=&quot;inp&quot; value=&quot;Test text input with the .inp class&quot;&gt;&lt;br&gt;&lt;br&gt;
+    &lt;input type=&quot;password&quot; class=&quot;inp&quot; value=&quot;Test password input with the .inp class&quot;&gt;
+    &lt;script src=&quot;hplb.js&quot;&gt;&lt;/script&gt;
+    &lt;hr&gt;
+    &lt;!--Text--&gt;
+    &lt;p class=&quot;txt-center&quot;&gt;Paragraph with the .txt-center class&lt;/p&gt;
+    &lt;h1 class=&quot;header&quot;&gt;H1 with the .header class&lt;/h1&gt;
+    &lt;hr&gt;
+    &lt;!--colors--&gt;
+    &lt;div class=&quot;bg-rainbow&quot; style=&quot;width: 100px; height: 100px; border-radius: 5px;&quot;&gt;Div with the .bg-rainbow class&lt;/div&gt;
+    &lt;p class=&quot;txt-rainbow&quot;&gt;Paragraph with the .txt-rainbow class&lt;/p&gt;
+    &lt;h1 class=&quot;txt-rainbow&quot;&gt;H1 with the .txt-rainbow class&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details><details><summary>construct.html</summary><div class="doc-code"><button class="btn doc-copy" type="button" aria-label="Копировать HTML">Копировать</button><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Elements of HPlb 1.2.0&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!--danger-card--&gt;
+    &lt;div style=&quot;background-color: rgb(255, 97, 97); border-left: 5px solid red; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:not-allowed;&quot;&gt;
+        &lt;h3&gt;Danger!&lt;/h3&gt;
+        &lt;h5&gt;${content}&lt;/h5&gt;
+    &lt;/div&gt;
+    &lt;!--info-card--&gt;
+    &lt;div style=&quot;background-color: rgb(207, 226, 232); border-left: 5px solid lightblue; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:help;&quot;&gt;
+        &lt;h3&gt;Info?&lt;/h3&gt;
+        &lt;h5&gt;${content}&lt;/h5&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div></details></section><footer>HPlb v1.2.0 <a href="#start">К началу</a></footer></main></div><div id="doc-copy-status" role="status" aria-live="polite"></div>
+<script id="hplb-original-js">//danger-card
+class DangerCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        <div style="background-color: rgb(255, 97, 97); border-left: 5px solid red; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:not-allowed;">
+            <h3>Danger!</h3>
+            <h5>${content}</h5>
+        </div>
+        `
+    }
+}
+customElements.define("danger-card", DangerCard)
+//info-card
+class InfoCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        <div style="background-color: rgb(207, 226, 232); border-left: 5px solid lightblue; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:help;">
+            <h3>Info?</h3>
+            <h5>${content}</h5>
+        </div>
+        `
+    }
+}
+customElements.define("info-card", InfoCard)
+//custom-card
+class CustomCard extends HTMLElement {
+    constructor() {
+        super();
+        var content = this.innerHTML
+        this.innerHTML = `
+        <div style="background-color: ${this.getAttribute("bg-cl")}; border-left: 5px solid ${this.getAttribute("cl-cl")}; border-radius: 5px; width: max-content; padding-left: 5px; padding-right: 5px; cursor:help;">
+            <h3>${this.getAttribute("name")}</h3>
+            <h5>${content}</h5>
+        </div>
+        `
+    }
+}
+customElements.define("custom-card", CustomCard)</script><script id="doc-i18n">const docEnglish = {"5 CSS-классов и 2 пользовательских элемента.": "5 CSS classes and 2 custom elements.", "9 CSS-классов и 2 пользовательских элемента.": "9 CSS classes and 2 custom elements.", "9 CSS-классов и 3 пользовательских элемента.": "9 CSS classes and 3 custom elements.", "Accept и Delete не подтверждают и не удаляют данные сами по себе. Для кнопки без отправки формы укажите type=\"button\".": "Accept and Delete do not confirm or delete data on their own. Use type=\"button\" for a button that should not submit a form.", "CSS, JavaScript и страницы примеров этой версии.": "CSS, JavaScript, and example pages for this version.", "CSS-цвет левой рамки толщиной 5px.": "CSS color of the 5px left border.", "CSS-цвет фона.": "CSS background color.", "disabled запрещает взаимодействие средствами HTML.": "The HTML disabled attribute prevents interaction.", "document.createElement() для зарегистрированной карточки вызывает NotSupportedError: конструктор изменяет дочерние узлы. Для текущей реализации используйте декларативную разметку до скрипта.": "Calling document.createElement() for a registered card raises NotSupportedError because the constructor modifies child nodes. With this implementation, place declarative markup before the script.", "h5 предназначен для фразового содержимого: произвольные блоки, кнопки и поля внутри него не соответствуют модели содержимого HTML.": "h5 accepts phrasing content; arbitrary blocks, buttons, and input fields inside it do not conform to its HTML content model.", "type=\"tel\" сам по себе не проверяет формат номера.": "type=\"tel\" does not validate the phone number format on its own.", "Атрибут": "Attribute", "Атрибут title задаёт заголовок у всех трёх карточек. Это также стандартный глобальный атрибут HTML: браузер может показывать его значение во всплывающей подсказке. name больше не используется для заголовка.": "The title attribute sets the heading for all three cards. It is also a standard global HTML attribute, so the browser may show its value as a tooltip. name is no longer used for the heading.", "Атрибуты custom-card": "custom-card attributes", "Базовая кнопка с радужным фоном.": "A base button with a rainbow background.", "Базовая кнопка: отступы и рамка.": "Base button: padding and border.", "Без HPlb": "Without HPlb", "Большая кнопка": "Large button", "Большая кнопка подтверждения": "Large confirmation button", "Большая кнопка удаления": "Large delete button", "Браузер проверяет формат непустого адреса.": "The browser validates the format of a nonempty email address.", "Буквы красные. Шесть теней создают цветной след вправо и вниз; размытие каждой тени — 2px.": "The letters are red. Six shadows create a colored trail to the right and down; each shadow has a 2px blur.", "В каждом сравнении слева показан HPlb, справа — обычный HTML со стандартным оформлением браузера. На узком экране варианты расположены друг под другом.": "Each comparison shows HPlb on the left and plain HTML with default browser styling on the right. On narrow screens, the examples are stacked.", "В содержимом карточки можно использовать подходящие строчные элементы.": "You can use suitable inline elements inside a card.", "В шаблон попадает null; браузер отклоняет это значение цвета.": "null is inserted into the template; the browser rejects it as a color value.", "В шаблон попадает null; соответствующее правило рамки недопустимо.": "null is inserted into the template, making the corresponding border declaration invalid.", "В этой версии .btn также задаёт background-color: lightgrey и display: inline-block. Эти правила действуют и на button, и на a с классом btn.": "In this version, .btn also sets background-color: lightgrey and display: inline-block. These rules apply to both button and a elements with the btn class.", "Валидацию выполняет браузер; HPlb оформляет результат. Кнопки показа пароля и собственного механизма проверки данных в библиотеке нет.": "The browser handles validation; HPlb styles the result. The library does not include a password reveal button or its own validation system.", "Валидность пароля оформляется тем же правилом .inp:invalid.": "Password validity is styled by the same .inp:invalid rule.", "Введите имя": "Enter your name", "Введите пароль": "Enter a password", "Введите текст": "Enter text", "Все карточки используют border-radius: 5px, width: max-content и горизонтальные отступы 5px. Заголовок каждой карточки берётся из title. Без этого атрибута выводится null. Теневой DOM и слоты не используются.": "All cards use border-radius: 5px, width: max-content, and 5px horizontal padding. Each card reads its heading from title. Without this attribute, null is displayed. Shadow DOM and slots are not used.", "Все карточки используют border-radius: 5px, width: max-content и горизонтальные отступы 5px. У danger-card и info-card заголовки фиксированы. Теневой DOM и слоты не используются.": "All cards use border-radius: 5px, width: max-content, and 5px horizontal padding. danger-card and info-card have fixed headings. Shadow DOM and slots are not used.", "Вставляйте в карточки только доверенное содержимое. Движок использует innerHTML без очистки.": "Only insert trusted content into cards. The engine uses innerHTML without sanitization.", "Вставляйте в карточки только доверенное содержимое. Движок использует innerHTML без очистки. У custom-card, если он есть в версии, заголовок и цвета также вставляются в HTML-шаблон.": "Only insert trusted content into cards. The engine uses innerHTML without sanitization. In versions with custom-card, its heading and colors are also inserted into the HTML template.", "Выводится текст null.": "The text null is displayed.", "Готово": "Done", "Градиент слева направо: red, orange, yellow, green, lightblue, blue, purple. Высоту и ширину класс не задаёт.": "A left-to-right gradient: red, orange, yellow, green, lightblue, blue, purple. The class does not set height or width.", "Градиентная кнопка": "Gradient button", "Для кнопок, полей и CSS-классов нужен только hplb.css. Для карточек дополнительно нужен hplb.js. Подключайте скрипт один раз: повторная регистрация Custom Elements вызывает ошибку.": "Buttons, inputs, and CSS classes only need hplb.css. Cards also need hplb.js. Include the script once: registering a Custom Element name twice causes an error.", "Для собственной страницы настройте action или обработчик отправки. В коде ниже действует стандартная отправка методом POST; серверную обработку HPlb не реализует.": "For your own page, configure an action or a submit handler. The code below uses standard POST submission; HPlb does not implement server-side processing.", "Документация и рабочие примеры": "Documentation and live examples", "Другие цвета custom-card": "More custom-card colors", "Если добавить оба цветовых класса, цвета .btn-delete победят из-за порядка правил в CSS. Порядок классов в HTML результата не меняет. Модификаторы не заменяют базовый класс .btn.": "If both color classes are added, .btn-delete wins because of the CSS rule order. The order of classes in HTML does not change the result. Modifiers do not replace the base .btn class.", "Если отсутствует": "When omitted", "Заголовок": "Heading", "Заголовок внутри h3.": "The heading inside h3.", "Задайте атрибуты до подключения hplb.js. После создания изменения не отслеживаются: observedAttributes и attributeChangedCallback не реализованы.": "Set the attributes before including hplb.js. Changes are not observed after creation: observedAttributes and attributeChangedCallback are not implemented.", "Замените значение корректным адресом: красная рамка исчезнет.": "Enter a valid address to remove the red border.", "Зарегистрированный элемент": "Registered element", "Зелёный текст и светло-зелёный фон.": "Green text and a light green background.", "Значение 12 превышает max=\"10\". Введите число от 1 до 10.": "The value 12 exceeds max=\"10\". Enter a number from 1 to 10.", "Изменения сохранены.": "Changes saved.", "Имя": "Name", "Имя name здесь задаёт заголовок, а не отправляемое значение формы.": "Here, name sets the heading rather than a submitted form value.", "Информация": "Information", "Исходный код": "Source code", "К началу": "Back to top", "Карточка с заголовком из title и фиксированными цветами.": "A card with a heading from title and fixed colors.", "Карточка с фиксированным заголовком и цветами.": "A card with a fixed heading and colors.", "Карточки": "Cards", "Карточки имеют width: max-content. Длинные строки могут выходить за узкий контейнер.": "Cards use width: max-content. Long strings may overflow a narrow container.", "Карточки — Custom Elements. Содержимое читается из innerHTML и помещается внутрь h5. В сравнении без HPlb используется обычный div с тем же заголовком и содержимым.": "Cards are Custom Elements. Content is read from innerHTML and placed inside h5. The plain HTML comparison uses a div with the same heading and content.", "Класс": "Class", "Класс .inp применяется к любому элементу с этим классом независимо от type. Базовые значения: чёрная рамка 1px, скругление 5px, высота 25px и размер текста 25px. Для текстовых полей, email, телефона, числа и пароля используется один класс.": "The .inp class applies to any element with that class, regardless of type. Defaults: a 1px black border, 5px corner radius, 25px height, and 25px font size. Text, email, telephone, number, and password fields use the same class.", "Класс btn выбирается и при дополнительных классах: a.btn подходит для class=\"btn btn-big\". Селектор a[class=\"btn\"] выбрал бы только точное значение btn и не подошёл бы для такой комбинации.": "The btn class still matches when other classes are present: a.btn matches class=\"btn btn-big\". The a[class=\"btn\"] selector would only match the exact value btn, so it would not match that combination.", "Класс header не загружает пользовательский шрифт. sans-serif — системное семейство шрифтов без засечек.": "The header class does not load a custom font. sans-serif selects a system sans-serif font family.", "Класс задаёт оформление; действие кнопки добавляется отдельно.": "The class provides styling; button behavior is added separately.", "Класс или элемент": "Class or element", "Классы header и txt-rainbow можно комбинировать.": "The header and txt-rainbow classes can be combined.", "Кнопки": "Buttons", "Кнопки, поля ввода и карточки для HTML.": "Buttons, inputs, and cards for HTML.", "Код HPlb": "HPlb code", "Количество": "Quantity", "Копировать": "Copy", "Копировать CSS": "Copy CSS", "Копировать HTML": "Copy HTML", "Копировать JavaScript": "Copy JavaScript", "Красная рамка 2px при невалидном значении. Правило идёт после focus и побеждает его.": "A 2px red border for an invalid value. This rule comes after focus and takes precedence.", "Красный текст и разноцветные тени.": "Red text with multicolored shadows.", "Красный текст и розовый фон.": "Red text and a pink background.", "Можно использовать обычные CSS-цвета, включая шестнадцатеричную запись.": "You can use standard CSS colors, including hexadecimal notation.", "Назначение": "Purpose", "Назначьте ссылке класс btn и укажите href. Селектор a.btn убирает подчёркивание и задаёт чёрный цвет текста. Правила .btn добавляют фон, скругление, рамку и padding: 5px. Нажимать можно на всю область ссылки, включая внутренние отступы.": "Give the link the btn class and an href. The a.btn selector removes underlining and makes the text black. The .btn rules add a background, rounded corners, a border, and padding: 5px. The entire link area is clickable, including its padding.", "Найти пример": "Find an example", "Например: btn, password, карточка": "For example: btn, password, card", "Настраиваемая карточка.": "A customizable card.", "Начало": "Overview", "Начните с .btn, затем добавьте размер и один цветовой модификатор. Базовая кнопка имеет padding: 5px, border-radius: 5px, width: max-content и прозрачную рамку 1px. При наведении рамка становится чёрной, а курсор — указателем.": "Start with .btn, then add a size and one color modifier. The base button has padding: 5px, border-radius: 5px, width: max-content, and a 1px transparent border. On hover, the border turns black and the cursor becomes a pointer.", "Начните с подключения, выберите компонент в справочнике или найдите пример по названию класса.": "Start with setup, choose a component from the reference, or find an example by class name.", "Неверный email": "Invalid email", "Объявления class в обычном скрипте не создают одноимённые свойства window.": "Class declarations in a classic script do not create properties with the same names on window.", "Обычная кнопка": "Default button", "Обычное текстовое поле.": "A standard text input.", "Обычный HTML": "Plain HTML", "Обязательное поле": "Required field", "Обязательный пароль": "Required password", "Ограничение числа": "Number constraints", "Особенности": "Notes", "Особенности и ограничения": "Notes and limitations", "Отдельного объекта HPlb, экспортов модулей, публичных методов управления и собственных событий нет. Основной API — CSS-классы, теги карточек и атрибуты custom-card.": "There is no HPlb object, module exports, public control methods, or custom events. The main API consists of CSS classes, card tags, and custom-card attributes.", "Отдельного объекта HPlb, экспортов модулей, публичных методов управления и собственных событий нет. Основной API — CSS-классы, теги карточек.": "There is no HPlb object, module exports, public control methods, or custom events. The main API consists of CSS classes and card tags.", "Отключённое поле": "Disabled field", "Оформление полей и состояний focus / invalid.": "Input styling and focus / invalid states.", "Пароль": "Password", "Перезапись innerHTML пересоздаёт дочерние узлы; назначенные прежним узлам обработчики событий не сохраняются.": "Replacing innerHTML recreates child nodes; event listeners attached to the previous nodes are not preserved.", "Переходит к отметке в конце этого раздела. Для перехода используйте a, для действия без перехода — button.": "Jumps to the marker at the end of this section. Use a for navigation and button for an action without navigation.", "Повторное подключение hplb.js вызывает ошибку повторной регистрации имён.": "Including hplb.js again causes a duplicate name registration error.", "Подключение": "Setup", "Подключите CSS в head.": "Include the CSS in head.", "Подтверждение": "Confirmation", "Показать HTML-код обоих вариантов": "Show HTML code for both examples", "Показать весь код": "Show all code", "Поле без type": "Input without type", "Полная HTML-страница": "Complete HTML page", "Полный пример": "Complete example", "Полный пример: форма": "Complete example: form", "Поля ввода": "Inputs", "Попробуйте отправить пустую форму, затем введите email и пароль. В обоих демонстрационных вариантах отправка перехватывается, данные никуда не передаются. Reset очищает поля.": "Try submitting an empty form, then enter an email and password. Submission is intercepted in both demos; no data is sent. Reset clears the fields.", "Преобразование карточки происходит в constructor(). Разместите карточки в исходной разметке до подключения движка.": "Cards are transformed in constructor(). Place them in the initial markup before including the engine.", "При отсутствии type браузер использует текстовое поле. Оформление .inp сохраняется.": "Without type, the browser uses a text input. The .inp styling still applies.", "Проверить регистрацию можно стандартным API браузера после загрузки движка:": "You can check registration with the standard browser API after the engine loads:", "Пустое обязательное поле сразу невалидно.": "An empty required field is invalid immediately.", "Радужные тени": "Rainbow shadows", "Радужный фон": "Rainbow background", "Радужный фон.": "Rainbow background.", "Разделы документации": "Documentation sections", "Разместите hplb.css и hplb.js рядом с HTML-страницей.": "Place hplb.css and hplb.js next to the HTML page.", "Разместите карточки до скрипта и подключите hplb.js в самом конце body.": "Place cards before the script and include hplb.js at the very end of body.", "Результат": "Result", "Сбросить поиск": "Clear search", "Селектор": "Selector", "Селектор .inp не ограничен input: его можно назначить и другим элементам. Однако для checkbox, radio, range и других нетекстовых элементов нужно учитывать стандартное отображение браузера; отдельных вариантов оформления для них нет.": "The .inp selector is not limited to input elements. You can apply the class to other elements too. For checkbox, radio, range, and other non-text controls, consider their default browser rendering; no dedicated styles are provided.", "Символы скрывает браузер. Встроенный значок показа пароля, если он есть, относится к браузеру, а не к HPlb.": "The browser masks the characters. A built-in password reveal icon, if present, belongs to the browser, not HPlb.", "Состояния": "States", "Сохранено": "Saved", "Справочник": "Reference", "Справочник компонентов": "Component reference", "Ссылка с оформлением кнопки; новых классов не добавляет.": "A link styled as a button; no additional classes.", "Ссылка: большая кнопка": "Link: large button", "Ссылка: большая кнопка подтверждения": "Link: large confirmation button", "Ссылка: большая кнопка удаления": "Link: large delete button", "Ссылка: обычная кнопка": "Link: default button", "Ссылка: подтверждение": "Link: confirmation", "Ссылка: удаление": "Link: delete", "Ссылки": "Links", "Ссылки как кнопки": "Links as buttons", "Строчное оформление": "Inline formatting", "Текст": "Text", "Текст и тени вместе": "Text and shadows combined", "Текст карточки": "Card content", "Текст по центру": "Centered text", "Телефон": "Phone", "Требование заполнения полей и проверка email — возможности HTML. Классы HPlb добавляют оформление.": "Required fields and email validation are HTML features. HPlb classes add styling.", "У ссылок с btn-accept и btn-delete текст остаётся чёрным: a.btn имеет большую специфичность, чем .btn-accept и .btn-delete. Цвет фона модификатора применяется. Это поведение текущего CSS.": "Links with btn-accept and btn-delete keep black text: a.btn has higher specificity than .btn-accept and .btn-delete. The modifier background color still applies. This is the behavior of the current CSS.", "Увеличение толщины рамки может менять внешний размер поля. Отдельных правил для hover, disabled и required нет.": "Increasing border thickness may change the outer size of the input. There are no separate hover, disabled, or required rules.", "Увеличенный текст кнопки.": "Larger button text.", "Удаление": "Delete", "Фон rgb(207, 226, 232), левая рамка 5px solid lightblue и курсор help.": "Background: rgb(207, 226, 232); left border: 5px solid lightblue; cursor: help.", "Фон rgb(255, 97, 97), левая рамка 5px solid red и курсор not-allowed.": "Background: rgb(255, 97, 97); left border: 5px solid red; cursor: not-allowed.", "Фон, левая рамка и заголовок задаются атрибутами.": "Attributes set the background, left border, and heading.", "Форма с валидацией": "Form with validation", "Цвет и размер применяются вместе.": "Color and size are applied together.", "Цвета": "Colors", "Цель демонстрационных ссылок.": "Destination of the demo links.", "Центрирование и семейство sans-serif.": "Centered text and the sans-serif family.", "Центрирование строчного содержимого.": "Centered inline content.", "Центрирует текст внутри контейнера. Не перемещает сам контейнер и не меняет семейство шрифтов.": "Centers text inside the container. It does not move the container itself or change the font family.", "Центрирует текст и задаёт font-family: sans-serif. Размер и уровень заголовка определяются тегом.": "Centers the text and sets font-family: sans-serif. The tag determines the heading size and level.", "Число": "Number", "Числовое поле; ограничения задаются атрибутами min, max и step.": "A number input; constraints are set with min, max, and step.", "Чёрная рамка 2px при фокусе.": "A 2px black border when focused.", "успешно": "successfully", "Пример HPlb": "HPlb example", "Добро пожаловать!": "Welcome!", "Заполните поля и нажмите Accept.": "Fill in the fields and press Accept.", "Недоступно": "Unavailable", "Код скопирован": "Code copied", "Код выделен. Скопируйте его вручную.": "Code selected. Copy it manually.", "Скрыть весь код": "Hide all code", "Найдено примеров: ": "Examples found: ", " из ": " of ", "Всего примеров: ": "Total examples: ", "Проверка пройдена. Данные не отправляются.": "Validation passed. No data is sent.", "HPlb v1.0.0 — документация": "HPlb v1.0.0 — documentation", "HPlb v1.1.0 — документация": "HPlb v1.1.0 — documentation", "HPlb v1.2.0 — документация": "HPlb v1.2.0 — documentation", "HPlb v1.2.1 — документация": "HPlb v1.2.1 — documentation", "HPlb v1.3.0 — документация": "HPlb v1.3.0 — documentation"};
+
+window.docLanguage = 'ru';
+window.docText = text => window.docLanguage === 'en' ? (docEnglish[text] ?? text) : text;
+const docLanguageTexts = [];
+const docLanguageAttrs = [];
+const docPhraseKeys = Object.keys(docEnglish).sort((a,b) => b.length-a.length);
+function docTranslateSnippet(text) {
+    return docPhraseKeys.reduce((value, key) => value.split(key).join(docEnglish[key]), text).replaceAll('lang="ru"','lang="en"');
+}
+const docWalker = document.createTreeWalker(document.documentElement, NodeFilter.SHOW_TEXT);
+while (docWalker.nextNode()) {
+    const node = docWalker.currentNode;
+    const parent = node.parentElement;
+    if (!parent || parent.closest('script,style,#sources pre,.doc-language,#doc-copy-status,#doc-search-result,#doc-toggle-code,output')) continue;
+    if (/[А-Яа-яЁё]/.test(node.nodeValue)) docLanguageTexts.push({node,original:node.nodeValue,snippet:!!parent.closest('pre')});
+}
+document.querySelectorAll('[placeholder],[aria-label],[title],[name],[value]').forEach(element => {
+    if (element.closest('#sources pre,.doc-language')) return;
+    for (const attr of ['placeholder','aria-label','title','name','value']) {
+        const value = element.getAttribute(attr);
+        if (value && /[А-Яа-яЁё]/.test(value)) docLanguageAttrs.push({element,attr,original:value,last:value});
+    }
+});
+window.docSetLanguage = function(language, save = true) {
+    window.docLanguage = language === 'en' ? 'en' : 'ru';
+    document.documentElement.lang = window.docLanguage;
+    for (const record of docLanguageTexts) {
+        const raw = record.original;
+        const trimmed = raw.trim();
+        record.node.nodeValue = window.docLanguage === 'ru' ? raw : record.snippet ? docTranslateSnippet(raw) : raw.replace(trimmed,docEnglish[trimmed] ?? trimmed);
+    }
+    for (const record of docLanguageAttrs) {
+        const translated = window.docText(record.original);
+        const current = record.attr === 'value' ? record.element.value : null;
+        record.element.setAttribute(record.attr,translated);
+        if (record.attr === 'value') record.element.value = current === record.last ? translated : current;
+        record.last = translated;
+    }
+    document.querySelectorAll('[data-doc-language]').forEach(button => {
+        const selected = button.dataset.docLanguage === window.docLanguage;
+        button.setAttribute('aria-pressed',String(selected));
+        button.classList.toggle('btn-accept',selected);
+    });
+    document.querySelectorAll('.doc-example').forEach(example => {
+        if (!example.dataset.originalSearch) example.dataset.originalSearch = example.dataset.search;
+        example.dataset.search = (example.dataset.originalSearch+' '+example.textContent).toLocaleLowerCase('ru');
+    });
+    document.getElementById('doc-copy-status').textContent = '';
+    if (window.docRefreshLanguage) window.docRefreshLanguage();
+    if (save) { try { localStorage.setItem('hplb-doc-language',window.docLanguage); } catch {} }
+};
+document.querySelectorAll('[data-doc-language]').forEach(button => button.addEventListener('click', () => window.docSetLanguage(button.dataset.docLanguage)));
+let docPreferredLanguage = 'ru';
+try { docPreferredLanguage = localStorage.getItem('hplb-doc-language') || 'ru'; } catch {}
+window.docSetLanguage(docPreferredLanguage,false);
+</script><script id="doc-behavior">
+const copyStatus = document.getElementById('doc-copy-status');
+let copyTimer;
+document.querySelectorAll('.doc-copy').forEach(button => {
+    button.addEventListener('click', async () => {
+        const text = button.parentElement.querySelector('code').textContent;
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+            } else {
+                const field = document.createElement('textarea');
+                field.value = text;
+                field.style.position = 'fixed';
+                field.style.opacity = '0';
+                document.body.appendChild(field);
+                try {
+                    field.select();
+                    if (!document.execCommand('copy')) throw new Error('Copy failed');
+                } finally { field.remove(); }
+            }
+            clearTimeout(copyTimer);
+            copyStatus.textContent = window.docText("Код скопирован");
+            copyTimer = setTimeout(() => { copyStatus.textContent = ''; }, 2000);
+        } catch {
+            const selection = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(button.parentElement.querySelector('code'));
+            selection.removeAllRanges();
+            selection.addRange(range);
+            copyStatus.textContent = window.docText("Код выделен. Скопируйте его вручную.");
+        }
+    });
+});
+const search = document.getElementById('doc-search');
+const examples = [...document.querySelectorAll('.doc-example')];
+function filterExamples() {
+    const query = search.value.trim().toLocaleLowerCase('ru');
+    let visible = 0;
+    examples.forEach(example => {
+        example.hidden = !example.dataset.search.includes(query);
+        if (!example.hidden) visible++;
+    });
+    document.getElementById('doc-search-result').textContent =
+        query ? window.docText("Найдено примеров: ") + visible + window.docText(" из ") + examples.length : window.docText("Всего примеров: ") + examples.length;
+}
+search.addEventListener('input', filterExamples);
+document.getElementById('doc-clear').addEventListener('click', () => {
+    search.value = '';
+    filterExamples();
+    search.focus();
+});
+document.querySelectorAll('.doc-nav a').forEach(link => {
+    link.addEventListener('click', () => { search.value = ''; filterExamples(); });
+});
+filterExamples();
+const toggle = document.getElementById('doc-toggle-code');
+toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-pressed') !== 'true';
+    document.querySelectorAll('details.doc-example-code').forEach(detail => { detail.open = open; });
+    toggle.setAttribute('aria-pressed', String(open));
+    toggle.textContent = open ? window.docText("Скрыть весь код") : window.docText("Показать весь код");
+});
+document.querySelectorAll('form[data-doc-demo]').forEach(form => {
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        form.querySelector('output').textContent = window.docText("Проверка пройдена. Данные не отправляются.");
+    });
+    form.addEventListener('reset', () => { form.querySelector('output').textContent = ''; });
+});
+
+window.docRefreshLanguage = function() {
+    filterExamples();
+    toggle.textContent = window.docText(toggle.getAttribute('aria-pressed') === 'true' ? 'Скрыть весь код' : 'Показать весь код');
+    document.querySelectorAll('form[data-doc-demo] output').forEach(output => {
+        if (output.textContent) output.textContent = window.docText('Проверка пройдена. Данные не отправляются.');
+    });
+};
+window.docRefreshLanguage();
+</script></body></html>
